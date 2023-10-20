@@ -3,12 +3,18 @@ const User = require("../models").User;
 
 module.exports = {
   list(req, res) {
-    return User.findAll({
+    User.findAll({
       include: [],
       order: [["createdAt", "DESC"]],
     })
       .then((users) => res.status(200).send(users))
-      .catch((error) => res.status(400).send(error));
+      .catch((error) =>
+        res.status(400).send({
+          status: "error",
+          message: "error db or data null",
+          data: error,
+        })
+      );
   },
 
   getById(req, res) {
