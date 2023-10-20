@@ -1,14 +1,17 @@
-const { Router } = require("express");
+const express = require("express");
+const router = express.Router();
 const userController = require("../controllers").userController;
 
-Router.get("/", function (req, res, next) {
-  res.render("index", { title: "Express" });
+// router.get("/", function (req, res, next) {
+//   res.render("index", { title: "Express" });
+// });
+router.get("/check", (req, res) => {
+  res.send("Router berhasil");
 });
+router.get("/users", userController.list);
+router.get("/user/:id", userController.getById);
+router.post("/user", userController.add);
+router.put("/user/:id", userController.update);
+router.delete("/user/:id", userController.delete);
 
-Router.get("/api/user", userController.list);
-Router.get("/api/user/:id", userController.getById);
-Router.post("/api/user", userController.add);
-Router.put("/api/user/:id", userController.update);
-Router.delete("/api/user/:id", userController.delete);
-
-module.exports = Router;
+module.exports = router;
